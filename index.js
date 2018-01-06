@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-
+app.get('/',function(req,res){
+	res.send('this is the main homepage GET response');
+});
 
 app.post('/sms',(req,res)=>{
 	console.log(req.body);
