@@ -1,0 +1,169 @@
+Vent prototype functional requirements
+======================================
+
+------------------------
+Markup for this document
+------------------------
+
+[Name]: go to workflow "Name"
+/Name/: variable
+
+----------
+User Roles
+----------
+
+Guest:	user calls to request a conversation for their desired duration
+
+Host:	user calls to sign up for a time interval, then waits during that time interval to receive calls from guests 
+
+
+---------
+Workflows
+---------
+
+.................
+Login
+.................
+1. User calls Vent phone number
+2. Is user's phone number is already in list of enrolled users? 
+	a. Yes: Request PIN, no further access until user provides correct PIN.  After /maxPINTries/ attempts,
+		end call with goodbye message.
+	b. No: 
+		a. user sets PIN
+		b. set up user account
+3. [Main Menu]
+
+..............
+Display Status
+..............
+1. Is user's last guest call unrated?
+	a. [Rate Call]
+2. Does user have an active host interval?
+	a. Yes: Tell user host interval
+3. Tell user available guest minutes
+
+.........
+Rate Call
+.........
+1. Request rating from user, scale zero to maximum
+2. Set rating for most recent call
+
+...........................................
+Main Menu (for navigating to each workflow)
+...........................................
+1. Display Status
+2. User chooses activity:
+	a. Guest Call
+	b. Host Registration
+	c. Help
+3. Go to workflow for user's chosen activity
+
+..........
+Guest Call
+..........
+1. User chooses call /duration/, until /duration/<=available minutes
+2. Run a query to find the host with the highest average rating who has currently active interval with at least /duration/ minutes remaining.  If more than one host fits this criteria, filter down to host with highest rating history with this user, then the host with the least number of calls answered that day, then randomly	
+3. If no host available:
+	a. Calculate wait time based on current call durations and host intervals
+	b. Inform user of wait time and main menu key
+	c. Put user on hold
+	d. Set event handler:
+		1. main menu key: 
+			a. Cancel [Contact Host] task
+			b. [Main Menu]
+3. /host/ = [Contact Host]
+4. Does host accept?
+	Yes: [Connect Call]
+	No:
+		a. If attempts to reach this host during interval exceed /maxIntervalAttempts/, cancel host's interval
+		b. Rerun steps 2-4
+
+
+............
+Connect Call
+............
+1. Inform host of call duration
+2. Inform host and guest of end call key
+3. Connect host and guest
+4. Set event handlers:
+	a. Host or guest presses end call key: [End Call]
+	b. Elapsed call time is getting close to duration: Inform host and guest
+	c. Elapsed call time has reached duration: [End Call]
+
+
+........
+End Call
+........
+1. Let guest [Rate Call]
+2. [Main Menu] for guest and host
+
+............
+Contact Host
+............
+1. Call host
+2. Does host respond?
+	a. Yes:
+		1. Notify host that they have a Vent guest waiting
+		2. Does host accept?
+			a. Yes: return /host/ with yes acceptance
+			b. No: return /host/ with no acceptance
+	b. No: return /host/ with no acceptance
+
+
+---------------
+Database Schema
+---------------
+(* = PII, must be encrypted)
+
+User
+-ID
+-*PhoneNumber
+-*PIN
+
+Call
+-ID
+-Duration
+-StartTime
+-EndTime
+-EndCause
+-GuestID
+-HostID
+-Rating
+
+
+//should the two Cause tables be merged? They're similar structure but the data is semantically different
+CallEndCause
+-ID
+-Cause ("guest"/"host"/"duration"/"error")
+
+CancelCause
+-ID
+-Cause ("host"/"unavailable")
+
+HostInterval
+-ID
+-HostID
+-ScheduledStartTime
+-ScheduledEndTime
+-CancelTime
+-CancelCause
+
+---------
+Economics
+---------
+Each user receives a fixed amount of basic minutes for guest calls each day.  Unused basic minutes do not roll over to the next day.
+Further guest call minutes can be earned as follows:
+	- Host time interval: 	A fraction of completed minutes of host interval are earned.  
+				E.g. 10 elapsed minutes of waiting to host a call -> 1 additional minute of guest time 
+	- Host talk time: For each minute that the user spends hosting a call, 1 minute is earned.
+	- Host rating: Host rating for call adds minutes 
+Earned minutes that are unused each day roll over to the next day.
+Minutes are subtracted from basic minutes first.  E.g. if on my first day I get 10 basic minutes, then get 5 earned minutes, then make a 3-minute guest call, I have 7 basic + 5 earned, so if there are no further transactions, the following day I will start with 10 basic + 5 earned
+
+--------------------------------------------------------------------------------------
+Nice-to-have features (optional for prototype, lower priority than other requirements)
+--------------------------------------------------------------------------------------
+Mechanism for gifting earned minutes
+	- User has separate gift-receiving PIN, cannot be the same as user's access PIN
+	- Basic minutes cannot be gifted
+	- Earned minutes that have not been spent can be gifted
