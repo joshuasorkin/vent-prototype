@@ -12,6 +12,8 @@ app.listen(port,()=>{
 });
 */
 
+console.log("got here at least");
+
 app.get('/',function(req,res){
 	res.send('this is the main homepage GET response');
 });
