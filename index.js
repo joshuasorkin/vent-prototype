@@ -1,9 +1,9 @@
 const express = require('express');
-const MessagingResponse=require('twilio').twiml.MessagingResponse;
+//const MessagingResponse=require('twilio').twiml.MessagingResponse;
 const app=express();
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.urlencoded({extended: false}));
 
 app.get('/',function(req,res){
 	res.send('this is the main homepage GET response');
