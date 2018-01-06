@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const MessagingResponse=require('twilio').twiml.MessagingResponse;
 const app=express();
 const bodyParser = require('body-parser');
@@ -9,19 +9,12 @@ app.get('/',function(req,res){
 	res.send('this is the main homepage GET response');
 });
 
+/*
 app.post('/sms',(req,res)=>{
 	console.log(req.body);
 	response.send("<Response><Message>Testing SMS twiml</Message></Response>");
-	
-	
-	
-	//const twiml=new MessagingResponse();
-	
-	//twiml.message('A Vent user desires to communicate.');
-	
-	//res.writeHead(200,{'Content-Type': 'text/xml'});
-	//res.end(twiml.toString());
 });
+*/
 
 /*
 var client=require('twilio')(
