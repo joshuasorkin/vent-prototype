@@ -5,12 +5,12 @@ const app=express();
 
 //app.use(bodyParser.urlencoded({extended: false}));
 
-/*
+
 const port=8000;
 app.listen(port,()=>{
 	console.log('live on port '+port);
 });
-*/
+
 
 app.get('/',function(req,res){
 	res.send('this is the main homepage GET response');
