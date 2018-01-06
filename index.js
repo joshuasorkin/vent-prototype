@@ -1,14 +1,16 @@
 const express = require('express');
-//const MessagingResponse=require('twilio').twiml.MessagingResponse;
 const app=express();
+//const MessagingResponse=require('twilio').twiml.MessagingResponse;
 //const bodyParser = require('body-parser');
 
 //app.use(bodyParser.urlencoded({extended: false}));
 
+/*
 const port=8000;
 app.listen(port,()=>{
 	console.log('live on port '+port);
 });
+*/
 
 app.get('/',function(req,res){
 	res.send('this is the main homepage GET response');
