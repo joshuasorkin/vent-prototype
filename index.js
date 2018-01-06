@@ -1,11 +1,33 @@
 const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
+const MessagingResponse=require('twilio').twiml.MessagingResponse;
+const app=express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.urlencoded({extended: false});
+
+
+
+app.post('/sms',(req,res)=>{
+	console.log(req.body);
+	response.send("<Response><Message>Testing SMS twiml</Message></Response>");
+	
+	
+	
+	//const twiml=new MessagingResponse();
+	
+	//twiml.message('A Vent user desires to communicate.');
+	
+	//res.writeHead(200,{'Content-Type': 'text/xml'});
+	//res.end(twiml.toString());
+});
+
+/*
 var client=require('twilio')(
 	process.env.TWILIO_ACCOUNT_SID,
 	process.env.TWILIO_AUTH_TOKEN
 );
+
+
 
 client.messages.create({
 	from: process.env.TWILIO_PHONE_NUMBER,
@@ -13,11 +35,4 @@ client.messages.create({
 	body: "evac has started!  you have twenty minutes until reset."
 	
 }).then((message) => console.log(message.sid));
-/*
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 */
