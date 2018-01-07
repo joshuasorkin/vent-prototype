@@ -3,6 +3,11 @@ const app=express();
 const VoiceResponse=require('twilio').twiml.VoiceResponse;
 //const MessagingResponse=require('twilio').twiml.MessagingResponse;
 const bodyParser = require('body-parser');
+const client=require('twilio')(
+	process.env.TWILIO_ACCOUNT_SID,
+	process.env.TWILIO_AUTH_TOKEN
+);
+
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -15,19 +20,28 @@ app.listen(port,()=>{
 
 
 app.get('/',function(req,res){
-	res.send('this is the main homepage GET response');
+	res.send('this is the mhomepage GET response');
 });
 
 
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
 	var fromObj=req.body.From;
-	const response=new VoiceResponse();
-	response.dial(fromObj);
-	//response.say('things are being said');
-	res.send(response.toString());
+	client.calls.create({
+		url:'https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech='+body,
+		to: req.body.To,
+		from: req.body.From,
+		method: 'GET'
+	})
 });
 
+app.post('/getVoiceTwiml',(req,res)=>{
+	const response=new VoiceResponse();
+	response.say(req.textforspeech);
+	responseTwiml=response.toString();
+	console.log(responseTwiml);
+	res.send(responseTwiml);
+});
 
 
 
