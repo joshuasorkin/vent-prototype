@@ -25,7 +25,7 @@ app.get('/',function(req,res){
         console.log(`BODY: ${chunk}`);
       });
     });
-    req.end();
+    //res.end();
 });
 	  
 function textforspeechURL(textforspeech){
