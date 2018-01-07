@@ -25,7 +25,6 @@ app.get('/',function(req,res){
         console.log(`BODY: ${chunk}`);
       });
     });
-	.then((call) => process.stdout.write(call.sid));
     //res.end();
 });
 	  
