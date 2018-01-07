@@ -13,11 +13,15 @@ app.listen(port,()=>{
 */
 
 
-
+try{
 app.get('/',function(req,res){
 	console.log("got here at least");
 	res.send('this is the main homepage GET response');
 });
+}
+catch(ex){
+	console.log("ERROR: "+ex.message);
+}
 
 /*
 app.post('/sms',(req,res)=>{
