@@ -24,9 +24,11 @@ app.get('/',function(req,res){
 	res.send('this is the mhomepage GET response');
 	var url="https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech=abcde";
 	https.get(url,res=>{
-	  body=JSON.stringify(res);
-	  console.log(body);
-	});
+	  res.on('data', (chunk) => {
+        console.log(`BODY: ${chunk}`);
+      });
+    });
+    req.end();
 });
 	  
 		
