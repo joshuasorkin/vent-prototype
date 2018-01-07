@@ -42,15 +42,15 @@ app.post('/sms',(req,res)=>{
 	client.calls.create({
 		url:url,
 		to: toObj,
-		from: fromObj,
-		method: 'GET'
+		from: fromObj
+		//method: 'GET'
 	});
 });
 
 app.get('/getVoiceTwiml',(req,res)=>{
 	console.log("got to getVoiceTwiml");
 	const response=new VoiceResponse();
-	response.say(req.textforspeech);
+	response.say(req.query.textforspeech);
 	responseTwiml=response.toString();
 	console.log(responseTwiml);
 	res.send(responseTwiml);
@@ -59,10 +59,6 @@ app.get('/getVoiceTwiml',(req,res)=>{
 
 
 /*
-var client=require('twilio')(
-	process.env.TWILIO_ACCOUNT_SID,
-	process.env.TWILIO_AUTH_TOKEN
-);
 
 
 
