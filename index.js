@@ -8,6 +8,7 @@ const client=require('twilio')(
 	process.env.TWILIO_AUTH_TOKEN
 );
 
+var https=require("https");
 
 app.use(bodyParser.urlencoded({extended: false}));
 
@@ -21,7 +22,15 @@ app.listen(port,()=>{
 
 app.get('/',function(req,res){
 	res.send('this is the mhomepage GET response');
+	var url="https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech=abcde";
+	https.get(url,res=>{
+	  body=JSON.stringify(res);
+	  console.log(body);
+	});
 });
+	  
+		
+		
 
 
 app.post('/sms',(req,res)=>{
