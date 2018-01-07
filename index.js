@@ -27,12 +27,15 @@ app.get('/',function(req,res){
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
 	var fromObj=req.body.From;
+	var toObj=req.body.To;
+	url='https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech='+encodeURIComponent(body);
+	console.log("url to send: "+url);
 	client.calls.create({
-		url:'https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech='+body,
-		to: req.body.To,
-		from: req.body.From,
+		url:url,
+		to: toObj,
+		from: fromObj,
 		method: 'GET'
-	})
+	});
 });
 
 app.post('/getVoiceTwiml',(req,res)=>{
