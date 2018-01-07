@@ -5,12 +5,12 @@ const app=express();
 
 //app.use(bodyParser.urlencoded({extended: false}));
 
-/*
-const port=8000;
+
+const port=process.env.PORT;
 app.listen(port,()=>{
 	console.log('live on port '+port);
 });
-*/
+
 
 
 try{
