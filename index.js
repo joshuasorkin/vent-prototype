@@ -12,17 +12,14 @@ var https=require("https");
 
 app.use(bodyParser.urlencoded({extended: false}));
 
-
 const port=process.env.PORT;
 app.listen(port,()=>{
 	console.log('live on port '+port);
 });
 
-
-
 app.get('/',function(req,res){
-	res.send('this is the mhomepage GET response');
-	var url="https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech=abcde";
+	res.send('this is the homepage GET response');
+	var url=textforspeechURL("abcde");
 	https.get(url,res=>{
 	  res.on('data', (chunk) => {
         console.log(`BODY: ${chunk}`);
@@ -31,7 +28,9 @@ app.get('/',function(req,res){
     req.end();
 });
 	  
-		
+function textforspeechURL(textforspeech){
+	return "https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
+}		
 		
 
 
@@ -39,18 +38,17 @@ app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
 	var fromObj=req.body.From;
 	var toObj=req.body.To;
-	url='https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech='+encodeURIComponent(body);
+	url=textforspeechURL(body);
 	console.log("url to send: "+url);
 	client.calls.create({
 		url:url,
 		to: toObj,
 		from: fromObj
-		//method: 'GET'
+		method: 'GET'
 	});
 });
 
 app.get('/getVoiceTwiml',(req,res)=>{
-	console.log("got to getVoiceTwiml");
 	const response=new VoiceResponse();
 	response.say(req.query.textforspeech);
 	responseTwiml=response.toString();
