@@ -1,5 +1,6 @@
 const express = require('express');
 const app=express();
+const VoiceResponse=require('twilio').twiml.VoiceResponse;
 //const MessagingResponse=require('twilio').twiml.MessagingResponse;
 //const bodyParser = require('body-parser');
 
@@ -20,8 +21,13 @@ app.get('/',function(req,res){
 
 app.post('/sms',(req,res)=>{
 	console.log("request body: \n"+req.body);
+	console.log("from: "+req.from);
+	const response=new VoiceResponse();
+	
 	res.send("<Response><Message>Testing SMS twiml</Message></Response>");
 });
+
+
 
 
 /*
