@@ -24,11 +24,11 @@ app.post('/sms',(req,res)=>{
 	var fromObj=req.body.From;
 	const response=new VoiceResponse();
 	console.log('created voiceresponse');
-	dial=response.dial();
-	dial.number('+15105753138');
+	response.dial('+15105753138');
 	console.log('dialed');
 	response.say('things are being said');
 	console.log('spoke');
+	res.send(response.toString());
 });
 
 
