@@ -25,6 +25,7 @@ app.get('/',function(req,res){
         console.log(`BODY: ${chunk}`);
       });
     });
+	.then((call) => process.stdout.write(call.sid));
     //res.end();
 });
 	  
@@ -42,8 +43,8 @@ app.post('/sms',(req,res)=>{
 	client.calls.create({
 		//url:url,
 		url:'https://vent-prototype.herokuapp.com/voice.xml',
-		to: toObj,
-		from: fromObj,
+		to: fromObj,
+		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
 });
