@@ -2,9 +2,9 @@ const express = require('express');
 const app=express();
 const VoiceResponse=require('twilio').twiml.VoiceResponse;
 //const MessagingResponse=require('twilio').twiml.MessagingResponse;
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
-//app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 
 const port=process.env.PORT;
