@@ -40,7 +40,8 @@ app.post('/sms',(req,res)=>{
 	url=textforspeechURL(body);
 	console.log("url to send: "+url);
 	client.calls.create({
-		url:url,
+		//url:url,
+		url:'https://vent-prototype.herokuapp.com/voice.xml',
 		to: toObj,
 		from: fromObj,
 		method: 'GET'
@@ -51,7 +52,7 @@ app.get('/getVoiceTwiml',(req,res)=>{
 	const response=new VoiceResponse();
 	response.say(req.query.textforspeech);
 	responseTwiml=response.toString();
-	console.log(responseTwiml);
+	console.log("responseTwiml: "+responseTwiml);
 	res.send(responseTwiml);
 });
 
