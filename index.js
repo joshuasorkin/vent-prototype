@@ -39,6 +39,7 @@ app.post('/sms',(req,res)=>{
 });
 
 app.get('/getVoiceTwiml',(req,res)=>{
+	console.log("got to getVoiceTwiml");
 	const response=new VoiceResponse();
 	response.say(req.textforspeech);
 	responseTwiml=response.toString();
