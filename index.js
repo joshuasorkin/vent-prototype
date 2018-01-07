@@ -19,8 +19,8 @@ app.get('/',function(req,res){
 
 
 app.post('/sms',(req,res)=>{
-	console.log(req.body);
-	response.send("<Response><Message>Testing SMS twiml</Message></Response>");
+	console.log("request body: \n"+req.body);
+	res.send("<Response><Message>Testing SMS twiml</Message></Response>");
 });
 
 
