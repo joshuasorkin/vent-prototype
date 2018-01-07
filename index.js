@@ -23,8 +23,8 @@ app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
 	var fromObj=req.body.From;
 	const response=new VoiceResponse();
-	response.dial(fromObj);
-	response.say(body);
+	response.dial('+15105753138');
+	response.say('things are being said');
 });
 
 
