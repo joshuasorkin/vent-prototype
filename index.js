@@ -40,8 +40,8 @@ app.post('/sms',(req,res)=>{
 	url=textforspeechURL(body);
 	console.log("url to send: "+url);
 	client.calls.create({
-		//url:url,
-		url:'https://vent-prototype.herokuapp.com/voice.xml',
+		url:url,
+		//url:'https://vent-prototype.herokuapp.com/voice.xml',
 		to: fromObj,
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
