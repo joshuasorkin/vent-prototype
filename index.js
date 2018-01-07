@@ -20,8 +20,8 @@ app.get('/',function(req,res){
 
 
 app.post('/sms',(req,res)=>{
-	console.log("request body: \n"+req.body);
-	console.log("from: "+req.from);
+	console.log("request body: \n"+req.body.Body);
+	console.log("from: "+req.body.From);
 	const response=new VoiceResponse();
 	
 	res.send("<Response><Message>Testing SMS twiml</Message></Response>");
