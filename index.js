@@ -38,7 +38,7 @@ app.post('/sms',(req,res)=>{
 	});
 });
 
-app.post('/getVoiceTwiml',(req,res)=>{
+app.get('/getVoiceTwiml',(req,res)=>{
 	const response=new VoiceResponse();
 	response.say(req.textforspeech);
 	responseTwiml=response.toString();
