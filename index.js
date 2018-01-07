@@ -21,9 +21,9 @@ app.get('/',function(req,res){
 
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
-	var from=req.body.From;
+	var fromObj=req.body.From;
 	const response=new VoiceResponse();
-	response.dial(from);
+	response.dial(fromObj);
 	response.say(body);
 });
 
