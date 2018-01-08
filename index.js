@@ -56,8 +56,9 @@ app.post('/voice', (req, res) => {
   response.say('hello world!');
 
   // Render the response as XML in reply to the webhook request
-  res.type('text/xml');
-  res.send(response.toString());
+  //res.type('text/xml');
+  responseTwiml=response.toString();
+  res.send(responseTwiml);
 });
 		
 app.post('/sms',(req,res)=>{
