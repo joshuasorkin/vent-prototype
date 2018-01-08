@@ -33,23 +33,25 @@ function textforspeechURL(textforspeech){
 }		
 
 		
-/*
+
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
 	url=process.env.VENT_URL+"callHost";
 	const response=new VoiceResponse();
 	
-	client.calls.create({
+	var call=client.calls.create({
 		url:url,
 		to: '+15105753138',
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
 	
+	console.log("call SID: "+call.sid);
+	
 });
-*/
 
 
+/*
 app.post('/voice', (req, res) => {
   // Use the Twilio Node.js SDK to build an XML response
   const response = new VoiceResponse();
@@ -60,6 +62,7 @@ app.post('/voice', (req, res) => {
   responseTwiml=response.toString();
   res.send(responseTwiml);
 });
+*/
 		
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
