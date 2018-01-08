@@ -35,14 +35,17 @@ function textforspeechURL(textforspeech){
 		
 
 app.post('/voice',(req,res)=>{
+	console.log("reached voice endpoint");
 	url=process.env.VENT_URL+"callHost";
 	const response=new VoiceResponse();
+	/*
 	client.calls.create({
 		url:url,
 		to: '+15105753138',
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
+	*/
 });
 		
 app.post('/sms',(req,res)=>{
@@ -53,7 +56,6 @@ app.post('/sms',(req,res)=>{
 	console.log("url to send: "+url);
 	client.calls.create({
 		url:url,
-		//url:'https://vent-prototype.herokuapp.com/voice.xml',
 		to: fromObj,
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
