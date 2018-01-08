@@ -29,16 +29,16 @@ app.get('/',function(req,res){
 });
 	  
 function textforspeechURL(textforspeech){
-	return "https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
+	return process.env.VENT_URL+"getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
 }		
 
 		
 
 app.post('/voice',(req,res)=>{
-	url=
+	url=process.env.VENT_URL+"callHost";
 	const response=new VoiceResponse();
 	client.calls.create({
-		url:"https://vent-prototype.herokuapp.com/callHost",
+		url:url,
 		to: '+15105753138',
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
