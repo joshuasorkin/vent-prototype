@@ -31,8 +31,20 @@ app.get('/',function(req,res){
 function textforspeechURL(textforspeech){
 	return "https://vent-prototype.herokuapp.com/getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
 }		
+
 		
 
+app.post('/voice',(req,res)=>{
+	url=
+	const response=new VoiceResponse();
+	client.calls.create({
+		url:"https://vent-prototype.herokuapp.com/callHost",
+		to: '+15105753138',
+		from: process.env.TWILIO_PHONE_NUMBER,
+		method: 'GET'
+	});
+});
+		
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
 	var fromObj=req.body.From;
@@ -57,6 +69,15 @@ app.get('/getVoiceTwiml',(req,res)=>{
 });
 
 
+app.get('/callHost',(req,res)=>{
+	const response=new VoiceResponse();
+	gather=response.gather();
+	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
+	response.say("We didn't receive input.  Goodbye!");
+	responseTwiml=response.toString();
+	console.log("responseTwiml: "+responseTwiml);
+	res.send(responseTwiml);
+});
 
 /*
 
