@@ -50,14 +50,14 @@ app.post('/voice',(req,res)=>{
 */
 
 
-app.post('/voice', (request, response) => {
+app.post('/voice', (req, res) => {
   // Use the Twilio Node.js SDK to build an XML response
-  const twiml = new VoiceResponse();
-  twiml.say({ voice: 'alice' }, 'hello world!');
+  const response = new VoiceResponse();
+  response.say('hello world!');
 
   // Render the response as XML in reply to the webhook request
-  response.type('text/xml');
-  response.send(twiml.toString());
+  res.type('text/xml');
+  res.send(response.toString());
 });
 		
 app.post('/sms',(req,res)=>{
