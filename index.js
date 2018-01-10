@@ -8,6 +8,8 @@ const client=require('twilio')(
 	process.env.TWILIO_AUTH_TOKEN
 );
 
+require('build-schema.js');
+
 var https=require("https");
 
 app.use(bodyParser.urlencoded({extended: false}));
