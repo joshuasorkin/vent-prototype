@@ -24,8 +24,8 @@ const querytext = "CREATE TABLE users(id SERIAL PRIMARY KEY, phonenumber VARCHAR
 const pool = new Pool(config);
 
 pool.connect(function(err, client, done) {
-    client.query(querytext)
-    done()
-})
+    client.query(querytext);
+    done();
+});
 
-pool.end()
+pool.end();
