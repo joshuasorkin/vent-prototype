@@ -94,8 +94,9 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
+	url=process.env.VENT_URL+'/handleHostResponseToOfferedGuest';
 	gather=response.gather({
-		action:'/handleHostResponseToOfferedGuest',
+		action:url,
 		method:'GET'
 	});
 	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
