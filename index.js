@@ -88,6 +88,7 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 		response.say("You didn't press 1.");
 	}
 	responseTwiml=response.toString();
+	console.log("responseTwiml: "+responseTwiml);
 	res.send(responseTwiml);
 });
 
