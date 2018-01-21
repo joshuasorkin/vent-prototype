@@ -32,7 +32,9 @@ app.get('/',function(req,res){
 	  
 function textforspeechURL(textforspeech){
 	return process.env.VENT_URL+"getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
-}		
+
+	
+	}		
 
 		
 
@@ -52,19 +54,6 @@ app.post('/voice',(req,res)=>{
 	
 });
 
-
-/*
-app.post('/voice', (req, res) => {
-  // Use the Twilio Node.js SDK to build an XML response
-  const response = new VoiceResponse();
-  response.say('hello world!');
-
-  // Render the response as XML in reply to the webhook request
-  //res.type('text/xml');
-  responseTwiml=response.toString();
-  res.send(responseTwiml);
-});
-*/
 		
 app.post('/sms',(req,res)=>{
 	var body=req.body.Body;
@@ -91,7 +80,10 @@ app.get('/getVoiceTwiml',(req,res)=>{
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
-	gather=response.gather();
+	gather=response.gather({
+		action:'/handleHostResponseToOfferedGuest',
+		method:'GET'
+	});
 	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
 	response.say("We didn't receive input.  Goodbye!");
 	responseTwiml=response.toString();
@@ -99,14 +91,3 @@ app.get('/callHost',(req,res)=>{
 	res.send(responseTwiml);
 });
 
-/*
-
-
-
-client.messages.create({
-	from: process.env.TWILIO_PHONE_NUMBER,
-	to: process.env.CELL_PHONE_NUMBER,
-	body: "evac has started!  you have twenty minutes until reset."
-	
-}).then((message) => console.log(message.sid));
-*/
