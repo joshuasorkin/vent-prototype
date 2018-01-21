@@ -77,6 +77,20 @@ app.get('/getVoiceTwiml',(req,res)=>{
 	res.send(responseTwiml);
 });
 
+//used for handling host's response to being offered the choice to accept or reject a guest's Vent
+app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
+	var digits=req.query.Digits;
+	const response=new VoiceResponse();
+	if (digits=="1"){
+		response.say("You pressed 1.");
+	}
+	else{
+		response.say("You didn't press 1.");
+	}
+	responseTwiml=response.toString();
+	res.send(responseTwiml);
+});
+
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
