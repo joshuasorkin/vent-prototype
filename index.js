@@ -41,6 +41,7 @@ app.post('/voice',(req,res)=>{
 	url=process.env.VENT_URL+"callHost";
 	console.log("SID for this call is: "+req.body.CallSid);
 	
+	/*
 	const response=new VoiceResponse();
 	
 	var call=client.calls.create({
@@ -49,9 +50,8 @@ app.post('/voice',(req,res)=>{
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
-	
-	console.log("call SID: "+call.sid);
-	
+	*/
+		
 });
 
 		
