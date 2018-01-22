@@ -122,6 +122,7 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 });
 
 app.get('/addToConference',(req,res)=>{
+	console.log("reached addToConference");
 	var conferenceName=req.query.conferenceName;
 	const response=new VoiceResponse();
 	response.say("Now connecting you to conference "+conferenceName);
