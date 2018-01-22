@@ -50,7 +50,8 @@ app.post('/voice',(req,res)=>{
 	sid=req.body.CallSid;
 	conferenceName="test conference room";
 	params={'conferenceName':conferenceName};
-	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
+	//url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
+	url='https://vent-prototype.herokuapp.com/addToConference?conferenceName=test';
 	console.log("url: "+url);
 	console.log('now updating inbound call sid '+sid);
 	client.calls(sid).update({
