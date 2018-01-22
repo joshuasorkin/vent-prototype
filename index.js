@@ -51,6 +51,7 @@ app.post('/voice',(req,res)=>{
 	conferenceName="test conference room";
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
+	console.log("url: "+url);
 	console.log('now updating inbound call sid '+sid);
 	client.calls(sid).update({
 		url:url,
