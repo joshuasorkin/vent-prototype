@@ -51,12 +51,13 @@ app.post('/voice',(req,res)=>{
 	conferenceName="test conference room";
 	params={'conferenceName':conferenceName};
 	//url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
-	url='https://vent-prototype.herokuapp.com/addToConference?conferenceName=test';
+	//url='https://vent-prototype.herokuapp.com/addToConference?conferenceName=test';
+	url='https://vent-prototype.herokuapp.com/addToConferencePOST';
 	console.log("url: "+url);
 	console.log('now updating inbound call sid '+sid);
 	client.calls(sid).update({
 		url:url,
-		method:'GET'
+		method:'POST'
 	});
 	
 	/*
@@ -120,6 +121,19 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	console.log("responseTwiml: "+responseTwiml);
 	res.send(responseTwiml);
 });
+
+app.get('/addToConferencePOST',(req,res)=>{
+	console.log("reached addToConferencePOST");
+	const response=new VoiceResponse();
+	response.say("Now connecting you to conference test");
+	dial=response.dial();
+	dial.conference("test");
+	responseTwiml=response.toString();
+	console.log("responseTwiml: "+responseTwiml);
+	res.send(responseTwiml);
+});
+
+
 
 app.get('/addToConference',(req,res)=>{
 	console.log("reached addToConference");
