@@ -32,15 +32,15 @@ app.get('/',function(req,res){
 	  
 function textforspeechURL(textforspeech){
 	return process.env.VENT_URL+"getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
-
-	
-	}		
+}		
 
 		
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
 	url=process.env.VENT_URL+"callHost";
+	console.log("SID for this call is: "+req.body.CallSid);
+	
 	const response=new VoiceResponse();
 	
 	var call=client.calls.create({
