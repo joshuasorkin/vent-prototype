@@ -34,14 +34,7 @@ function textforspeechURL(textforspeech){
 	return process.env.VENT_URL+"getVoiceTwiml?textforspeech="+encodeURIComponent(textforspeech);
 }		
 
-
-app.get('/testBuildGetUrl',(req,res)=>{
-	paramArray={
-		'name':'shuang van reizen',
-		'specialty':'vr'
-	};
-	console.log(buildGetUrl(process.env.VENT_URL,paramArray));
-});
+//creates a url from an array of key-value pairs
 function buildGetUrl(baseUrl,paramArray){
 	url=baseUrl+"?";
 	Object.keys(paramArray).forEach(function(key){
@@ -54,9 +47,18 @@ function buildGetUrl(baseUrl,paramArray){
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
-	url=process.env.VENT_URL+"callHost";
-	console.log("SID for this call is: "+req.body.CallSid);
+	sid=req.body.CallSid;
+	conferenceName="test conference room";
+	params={'conferenceName':conferenceName};
+	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
+	client.calls(sid).update({
+		url:url,
+		method:'GET'
+	});
 	
+	/*
+	baseUrl=process.env.VENT_URL+"callHost";
+	url=buildGetUrl(baseUrl,params);
 	
 	const response=new VoiceResponse();
 	
@@ -66,7 +68,7 @@ app.post('/voice',(req,res)=>{
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
-	
+	*/
 		
 });
 
@@ -93,12 +95,20 @@ app.get('/getVoiceTwiml',(req,res)=>{
 	res.send(responseTwiml);
 });
 
+
+
 //used for handling host's response to being offered the choice to accept or reject a guest's Vent
 app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	var digits=req.query.Digits;
+	var inboundSid=req.query.inboundSid;
+	var outboundSid=req.query.outboundSid;
 	const response=new VoiceResponse();
 	if (digits=="1"){
-		response.say("You pressed 1.");
+		response.say("Thank you, now connecting you to guest.");
+		dial=response.dial();
+		dial.conference('test conference',{
+			
+		});
 	}
 	else{
 		response.say("You didn't press 1.");
@@ -108,10 +118,28 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	res.send(responseTwiml);
 });
 
+app.get('/addToConference',(req,res)=>{
+	var conferenceName=req.query.conferenceName;
+	const response=new VoiceResponse();
+	response.say("Now connecting you to conference "+conferenceName);
+	dial=response.dial();
+	dial.conference(conferenceName);
+	responseTwiml=response.toString();
+	console.log("responseTwiml: "+responseTwiml);
+	res.send(responseTwiml);
+});
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
-	url=process.env.VENT_URL+'/handleHostResponseToOfferedGuest';
+	inboundSid=req.query.inboundSid;
+	outboundSid=req.query.CallSid;
+	console.log("outbound sid: "+outboundSid);
+	params={'inboundSid':inboundSid,
+			'outboundSid':outboundSid};
+	
+	baseUrl=process.env.VENT_URL+'/handleHostResponseToOfferedGuest';
+	url=buildGetUrl(baseUrl,params);
+	
 	gather=response.gather({
 		action:url,
 		method:'GET'
