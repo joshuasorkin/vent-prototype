@@ -84,9 +84,11 @@ app.post('/voice',(req,res)=>{
 	},"Thank you for calling Vent. Please wait while we find a host.");
 	const dial = response.dial();
 	dial.conference(sid);
-	twimlOutput=response.toString();
-	console.log(twimlOutput);
-	res.send(twimlOutput);
+	
+	sendResponse(response,res);
+	//twimlOutput=response.toString();
+	//console.log(twimlOutput);
+	//res.send(twimlOutput);
 		
 });
 
@@ -157,6 +159,20 @@ app.get('/addToConference',(req,res)=>{
 	console.log("responseTwiml: "+responseTwiml);
 	res.send(responseTwiml);
 });
+
+function sendResponse(response,res){
+	responseTwiml=response.toString();
+	console.log("responseTwiml: "+responseTwiml);
+	res.send(responseTwiml);
+}
+
+
+app.get('/inboundHandler',(req,res)=>{
+	
+});
+
+
+
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
