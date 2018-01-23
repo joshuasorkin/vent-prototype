@@ -47,18 +47,28 @@ function buildGetUrl(baseUrl,paramArray){
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
+	const response = new VoiceResponse();
+	const dial = response.dial();
+	dial.conference('Room 1234');
+	twimlOutput=response.toString());
+	console.log(twimlOutput);
+	res.send(twimlOutput);
+	
+	
+	
+	/*
 	sid=req.body.CallSid;
 	conferenceName="test conference room";
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
 	console.log("url: "+url);
-	client.calls(sid).fetch().then(call=>console.log("call from: "+call.from));
-	
 	console.log('now updating inbound call sid '+sid);
 	client.calls(sid).update({
 		url:url,
 		method:'GET'
 	});
+	*/
+	
 	
 	/*
 	baseUrl=process.env.VENT_URL+"callHost";
