@@ -163,7 +163,7 @@ app.get('/callHost',(req,res)=>{
 	params={'inboundSid':inboundSid,
 			'outboundSid':outboundSid};
 	
-	baseUrl=process.env.VENT_URL+'/handleHostResponseToOfferedGuest';
+	baseUrl=process.env.VENT_URL+'handleHostResponseToOfferedGuest';
 	url=buildGetUrl(baseUrl,params);
 	
 	gather=response.gather({
