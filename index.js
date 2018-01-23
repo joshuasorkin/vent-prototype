@@ -52,6 +52,8 @@ app.post('/voice',(req,res)=>{
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
 	console.log("url: "+url);
+	client.calls(sid).fetch().then(call=>console.log("call from: "+call.from));
+	
 	console.log('now updating inbound call sid '+sid);
 	client.calls(sid).update({
 		url:url,
