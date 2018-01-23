@@ -67,6 +67,8 @@ app.post('/voice',(req,res)=>{
 	
 	
 	baseUrl=process.env.VENT_URL+"callHost";
+	conferenceName="test conference room";
+	params={'conferenceName':conferenceName};
 	url=buildGetUrl(baseUrl,params);	
 	var call=client.calls.create({
 		url:url,
