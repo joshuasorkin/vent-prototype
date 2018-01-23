@@ -51,8 +51,10 @@ app.post('/voice',(req,res)=>{
 	
 	
 	
-	/*
+	
 	sid=req.body.CallSid;
+	
+	/*
 	conferenceName="test conference room";
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(process.env.VENT_URL+'addToConference',params);
@@ -67,7 +69,7 @@ app.post('/voice',(req,res)=>{
 	
 	
 	baseUrl=process.env.VENT_URL+"callHost";
-	conferenceName="test conference room";
+	conferenceName=sid;
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(baseUrl,params);	
 	var call=client.calls.create({
@@ -79,8 +81,9 @@ app.post('/voice',(req,res)=>{
 	
 	
 	const response = new VoiceResponse();
+	response.say("Thank you for calling Vent. Please wait while we find a host.");
 	const dial = response.dial();
-	dial.conference('Room 1234');
+	dial.conference(sid);
 	twimlOutput=response.toString();
 	console.log(twimlOutput);
 	res.send(twimlOutput);
@@ -115,12 +118,12 @@ app.get('/getVoiceTwiml',(req,res)=>{
 //used for handling host's response to being offered the choice to accept or reject a guest's Vent
 app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	var digits=req.query.Digits;
-	var outboundSid=req.query.outboundSid;
+	var conferenceName=req.query.conferenceName;
 	const response=new VoiceResponse();
 	if (digits=="1"){
 		response.say("Thank you, now connecting you to guest.");
 		dial=response.dial();
-		dial.conference('Room 1234');
+		dial.conference(conferenceName);
 	}
 	else{
 		response.say("You didn't press 1.");
@@ -157,11 +160,9 @@ app.get('/addToConference',(req,res)=>{
 
 app.get('/callHost',(req,res)=>{
 	const response=new VoiceResponse();
-	inboundSid=req.query.inboundSid;
-	outboundSid=req.query.CallSid;
-	console.log("outbound sid: "+outboundSid);
-	params={'inboundSid':inboundSid,
-			'outboundSid':outboundSid};
+	conferenceName=req.query.conferenceName;
+	
+	params={'conferenceName':conferenceName};
 	
 	baseUrl=process.env.VENT_URL+'handleHostResponseToOfferedGuest';
 	url=buildGetUrl(baseUrl,params);
