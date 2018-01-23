@@ -47,11 +47,6 @@ function buildGetUrl(baseUrl,paramArray){
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
-	
-	
-	
-	
-	
 	sid=req.body.CallSid;
 	
 	/*
@@ -69,6 +64,8 @@ app.post('/voice',(req,res)=>{
 	
 	
 	baseUrl=process.env.VENT_URL+"callHost";
+	
+	//todo: find more secure source of unique conference ID (maybe hash of sid)
 	conferenceName=sid;
 	params={'conferenceName':conferenceName};
 	url=buildGetUrl(baseUrl,params);	
