@@ -115,7 +115,6 @@ app.get('/getVoiceTwiml',(req,res)=>{
 //used for handling host's response to being offered the choice to accept or reject a guest's Vent
 app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	var digits=req.query.Digits;
-	var inboundSid=req.query.inboundSid;
 	var outboundSid=req.query.outboundSid;
 	const response=new VoiceResponse();
 	if (digits=="1"){
@@ -168,7 +167,7 @@ app.get('/callHost',(req,res)=>{
 	url=buildGetUrl(baseUrl,params);
 	
 	gather=response.gather({
-		action:url,
+		action:baseUrl,
 		method:'GET'
 	});
 	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
