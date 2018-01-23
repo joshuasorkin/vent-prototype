@@ -50,7 +50,7 @@ app.post('/voice',(req,res)=>{
 	const response = new VoiceResponse();
 	const dial = response.dial();
 	dial.conference('Room 1234');
-	twimlOutput=response.toString());
+	twimlOutput=response.toString();
 	console.log(twimlOutput);
 	res.send(twimlOutput);
 	
