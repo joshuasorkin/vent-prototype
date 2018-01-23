@@ -78,7 +78,10 @@ app.post('/voice',(req,res)=>{
 	
 	
 	const response = new VoiceResponse();
-	response.say("Thank you for calling Vent. Please wait while we find a host.");
+	response.say({
+		voice: 'alice',
+		language: 'en-AU'
+	},"Thank you for calling Vent. Please wait while we find a host.");
 	const dial = response.dial();
 	dial.conference(sid);
 	twimlOutput=response.toString();
