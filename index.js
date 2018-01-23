@@ -47,12 +47,7 @@ function buildGetUrl(baseUrl,paramArray){
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
-	const response = new VoiceResponse();
-	const dial = response.dial();
-	dial.conference('Room 1234');
-	twimlOutput=response.toString();
-	console.log(twimlOutput);
-	res.send(twimlOutput);
+	
 	
 	
 	
@@ -70,19 +65,23 @@ app.post('/voice',(req,res)=>{
 	*/
 	
 	
-	/*
+	
 	baseUrl=process.env.VENT_URL+"callHost";
-	url=buildGetUrl(baseUrl,params);
-	
-	const response=new VoiceResponse();
-	
+	url=buildGetUrl(baseUrl,params);	
 	var call=client.calls.create({
 		url:url,
 		to: '+15105753138',
 		from: process.env.TWILIO_PHONE_NUMBER,
 		method: 'GET'
 	});
-	*/
+	
+	
+	const response = new VoiceResponse();
+	const dial = response.dial();
+	dial.conference('Room 1234');
+	twimlOutput=response.toString();
+	console.log(twimlOutput);
+	res.send(twimlOutput);
 		
 });
 
@@ -120,9 +119,7 @@ app.get('/handleHostResponseToOfferedGuest',(req,res)=>{
 	if (digits=="1"){
 		response.say("Thank you, now connecting you to guest.");
 		dial=response.dial();
-		dial.conference('test conference',{
-			
-		});
+		dial.conference('Room 1234');
 	}
 	else{
 		response.say("You didn't press 1.");
