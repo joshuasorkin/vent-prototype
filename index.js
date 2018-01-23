@@ -110,9 +110,7 @@ app.post('/sms',(req,res)=>{
 app.get('/getVoiceTwiml',(req,res)=>{
 	const response=new VoiceResponse();
 	response.say(req.query.textforspeech);
-	responseTwiml=response.toString();
-	console.log("responseTwiml: "+responseTwiml);
-	res.send(responseTwiml);
+	sendResponse(response,res);
 });
 
 
@@ -168,7 +166,10 @@ function sendResponse(response,res){
 
 
 app.get('/inboundHandler',(req,res)=>{
-	
+	const response=new VoiceResponse();
+	gather=response.gather({
+		
+	})
 });
 
 
@@ -184,13 +185,11 @@ app.get('/callHost',(req,res)=>{
 	url=buildGetUrl(baseUrl,params);
 	
 	gather=response.gather({
-		action:baseUrl,
+		action:url,
 		method:'GET'
 	});
 	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
 	response.say("We didn't receive input.  Goodbye!");
-	responseTwiml=response.toString();
-	console.log("responseTwiml: "+responseTwiml);
-	res.send(responseTwiml);
+	sendResponse(response,res);
 });
 
