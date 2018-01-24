@@ -6,7 +6,7 @@ db.getUser('+19991112222', function(err, user) {
         console.log("user not found");
     }
     else {
-        console.log(userObj["phonenumber"]);
+        console.log(user["phonenumber"]);
     }
 });
 
