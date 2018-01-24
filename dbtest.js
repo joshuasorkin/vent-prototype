@@ -5,13 +5,15 @@ testGetUser('+12348290823');
 db.destruct();
 
 function testGetUser(phonenumber){
-	userObj=db.getUser(phonenumber);
-	if (userObj==null){
-		console.log("user not found");
-	}
-	else{
-		console.log(userObj["phonenumber"]);
-	}
+	db.getUser(phonenumber,function(err,user){
+		if (err) throw err;
+		if (user==null){
+			console.log("user not found");
+		}
+		else{
+			console.log(user["phonenumber"]);
+		}
+	});
 }
 
 /*
