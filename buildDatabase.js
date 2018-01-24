@@ -27,4 +27,4 @@ function clientQuery(queryString){
 		if (err) throw err;
 		client.end();
 	});
-}
+}.

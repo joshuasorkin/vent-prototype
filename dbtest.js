@@ -1,3 +1,20 @@
+var db=require('./database');
+
+testGetUser('+15105753138');
+testGetUser('+12348290823');
+db.destruct();
+
+function testGetUser(phonenumber){
+	userObj=db.getUser(phonenumber);
+	if (userObj==null){
+		console.log("user not found");
+	}
+	else{
+		console.log(userObj["phonenumber"]);
+	}
+}
+
+/*
 const {Client}=require('pg');
 
 const client=new Client({
@@ -15,3 +32,4 @@ client.query('SELECT phonenumber FROM users;', (err, res) => {
   }
   client.end();
 });
+*/
