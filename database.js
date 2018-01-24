@@ -14,7 +14,10 @@ module.exports={
 		console.log(queryStr);
 		pgclient.query(queryStr, (err, res) => {
 			console.log("rows length "+res.rows.length);
-			if (err) throw err;
+			if (err){
+				console.log("error occurred");
+				throw err;
+			}
 			if (res.rows.length==0){
 				return null;
 			}
