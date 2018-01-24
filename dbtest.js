@@ -6,7 +6,7 @@ const client=new Client({
 });
 
 client.connect();
-client.query("insert into users phonenumber values ('+15105753138');");
+client.query("insert into users (phonenumber) values ('+19991112222');");
 
 client.query('SELECT phonenumber FROM users;', (err, res) => {
   if (err) throw err;
