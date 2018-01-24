@@ -19,7 +19,7 @@ module.exports={
 				return res.rows[0];
 			}			
 		});
-	}
+	},
 	
 	destruct:function(){
 		pgclient.end();
