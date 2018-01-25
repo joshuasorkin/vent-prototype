@@ -46,4 +46,4 @@ function destruct(){
 */
 
 module.exports.getUser=getUser;
-module.exports.destruct=destruct;
+//module.exports.destruct=destruct;
