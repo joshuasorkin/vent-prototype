@@ -7,9 +7,8 @@ const pgclient=new Client({
 });
 
 pgclient.connect();
-
-module.exports={
 	
+module.exports = {
 	getUser:function(phonenumber, callback){
         queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
         console.log("queryStr: "+queryStr);  
@@ -25,10 +24,11 @@ module.exports={
 				}
 				else{
 					return res.rows[0];
-				})
-			.catch(err=>console.error(err.stack);
-    },
-	
+				}
+			})
+			.catch(err=>console.error(err.stack));
+	},			
+
 	destruct:function(){
 		pgclient.end();
 	}
