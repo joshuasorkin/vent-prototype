@@ -6,7 +6,7 @@ const pgclient=new Client({
 });
 
 console.log("before connect");
-pgclient.connect();
+await pgclient.connect();
 console.log("after connect");
 
 function getUser(phonenumber, callback){
