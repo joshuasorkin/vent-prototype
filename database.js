@@ -6,12 +6,6 @@ const pool=new Pool({
 	ssl:true
 });
 
-/*
-console.log("before connect");
-pgclient.connect();
-console.log("after connect");
-*/
-
 module.exports = {
 	getUser:function(phonenumber){
 		queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';

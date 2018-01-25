@@ -56,7 +56,7 @@ db.getUser('+19991112222', function(err, user) {
 });
 */
 
-testGetUser('+15105753138');
+testGetUser('+15105551337');
 testGetUser('+12348290823');
 //db.destruct();
 
