@@ -1,3 +1,8 @@
+//to remove from commit history for all files:
+//-hardcoded phone number
+//-hardcoded vent prototype url
+
+
 const express = require('express');
 const app=express();
 const VoiceResponse=require('twilio').twiml.VoiceResponse;
@@ -8,7 +13,7 @@ const client=require('twilio')(
 	process.env.TWILIO_AUTH_TOKEN
 );
 
-//require('build-schema.js');
+
 
 var https=require("https");
 
@@ -153,9 +158,7 @@ app.get('/addToConference',(req,res)=>{
 	response.say("Now connecting you to conference "+conferenceName);
 	dial=response.dial();
 	dial.conference(conferenceName);
-	responseTwiml=response.toString();
-	console.log("responseTwiml: "+responseTwiml);
-	res.send(responseTwiml);
+	sendResponse(response,res);
 });
 
 function sendResponse(response,res){
@@ -165,13 +168,16 @@ function sendResponse(response,res){
 }
 
 
-app.get('/inboundHandler',(req,res)=>{
+app.post('/inboundHandler',(req,res)=>{
+	inboundNumber=req.body.From;
+	userObj=getUser(inboundNumber);
 	const response=new VoiceResponse();
 	gather=response.gather({
-		
-	})
+		action:url,
+		method:'GET'
+	});
+	gather.say("Welcome to Vent.  ")
 });
-
 
 
 

@@ -15,12 +15,14 @@ console.log("after connect");
 module.exports = {
 	getUser:function(phonenumber){
 		queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
-		
+		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
 			if (res.rows.length==0){
+				console.log("null");
 				return null;
 			}
 			else{
+				console.log("non-null");
 				return res.rows[0];
 			}
 		});
