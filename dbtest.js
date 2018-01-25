@@ -44,6 +44,7 @@ getUser('+19991112222', function(err, user) {
 
 var db=require('./database');
 
+/*
 db.getUser('+19991112222', function(err, user) {
     if (err) throw err;
     if (user==null){
@@ -53,15 +54,14 @@ db.getUser('+19991112222', function(err, user) {
         console.log(user["phonenumber"]);
     }
 });
-
+*/
 
 testGetUser('+15105753138');
 testGetUser('+12348290823');
-db.destruct();
+//db.destruct();
 
 function testGetUser(phonenumber){
-	db.getUser(phonenumber,function(err,user){
-		if (err) throw err;
+	db.getUser(phonenumber,function(user){
 		if (user==null){
 			console.log("user not found");
 		}

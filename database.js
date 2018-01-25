@@ -1,3 +1,4 @@
+/*
 const {Client}=require('pg');
 
 const pgclient=new Client({
@@ -6,9 +7,19 @@ const pgclient=new Client({
 });
 
 console.log("before connect");
-await pgclient.connect();
+pgclient.connect();
 console.log("after connect");
+*/
 
+const query=require('pg-query');
+query.connectionParameters=process.env.DATABASE_URL;
+
+
+function getUser(phonenumber,callback){
+	queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
+	query.first(queryStr,callback);
+}
+/*
 function getUser(phonenumber, callback){
 	queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
 	console.log("queryStr: "+queryStr);  
@@ -26,9 +37,13 @@ function getUser(phonenumber, callback){
 		.catch(err=>console.error(err.stack));
 }			
 
+
+
+
 function destruct(){
 	pgclient.end();
 }
+*/
 
 module.exports.getUser=getUser;
 module.exports.destruct=destruct;
