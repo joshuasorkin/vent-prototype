@@ -5,8 +5,10 @@ const pgclient=new Client({
 	ssl:true
 });
 
+console.log("before connect");
 pgclient.connect();
-	
+console.log("after connect");
+
 function getUser(phonenumber, callback){
 	queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
 	console.log("queryStr: "+queryStr);  
