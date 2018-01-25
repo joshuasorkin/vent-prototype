@@ -18,7 +18,7 @@ module.exports = {
 		client.connect();
 		client.query(queryStr,(err,res)=>{
 			client.end();
-			if res.rows.length==0{
+			if (res.rows.length==0){
 				return null;
 			}
 			else{
