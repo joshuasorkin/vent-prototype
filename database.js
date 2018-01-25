@@ -11,9 +11,9 @@ pgclient.connect();
 function getUser(phonenumber, callback){
 	queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
 	console.log("queryStr: "+queryStr);  
-	/*abc.run().then(
+	abc.run().then(
 		console.log("running abc")
-	).catch(err=>console.error(err.stack);*/
+	).catch(err=>console.error(err.stack));
 	pgclient.query(queryStr)
 		.then(res => {
 			console.log("query running");
