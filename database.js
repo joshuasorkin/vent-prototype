@@ -1,7 +1,7 @@
 
 const {Pool,Client}=require('pg');
 
-const client=new Client({
+const pool=new Pool({
 	connectionString:process.env.DATABASE_URL,
 	ssl:true
 });
@@ -15,9 +15,8 @@ console.log("after connect");
 module.exports = {
 	getUser:function(phonenumber){
 		queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
-		client.connect();
-		client.query(queryStr,(err,res)=>{
-			client.end();
+		
+		pool.query(queryStr,(err,res)=>{
 			if (res.rows.length==0){
 				return null;
 			}
