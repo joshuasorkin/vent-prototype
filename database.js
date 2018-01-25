@@ -11,8 +11,9 @@ module.exports={
 	
 	getUser:function(phonenumber, callback){
         queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
-        console.log(queryStr);
+        console.log("queryStr: "+queryStr);
         pgclient.query(queryStr, (err, res) => {
+			console.log("query running");
             console.log("rows length "+res.rows.length);
             if (err) return callback(err);
             if (res.rows.length==0){
