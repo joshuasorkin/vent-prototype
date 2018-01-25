@@ -56,5 +56,5 @@ function destruct(){
 }
 */
 
-module.exports.getUser=getUser;
+//module.exports.getUser=getUser;
 //module.exports.destruct=destruct;
