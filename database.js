@@ -7,17 +7,17 @@ const pool=new Pool({
 });
 
 module.exports = {
-	getUser:function(phonenumber){
+	getUser:function(phonenumber,callback){
 		queryStr='SELECT * FROM users where phonenumber=\''+phonenumber+'\';';
 		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
 			if (res.rows.length==0){
 				console.log("null");
-				return null;
+				callback(null);
 			}
 			else{
 				console.log("non-null");
-				return res.rows[0];
+				callback(res.rows[0]);
 			}
 		});
 	}
