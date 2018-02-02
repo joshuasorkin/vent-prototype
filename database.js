@@ -26,7 +26,7 @@ module.exports = {
 		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
 			callback(res);
-		}
+		});
 		
 	}
 	getAvailableUsers(callback){
