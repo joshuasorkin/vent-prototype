@@ -20,6 +20,21 @@ module.exports = {
 				callback(res.rows[0]);
 			}
 		});
+	},
+	addUser:function(phonenumber,callback){
+		queryStr='insert into users (phonenumber,status) values (\''+phonenumber+'\',\'in use\')';
+		console.log(queryStr);
+		pool.query(queryStr,(err,res)=>{
+			callback(res);
+		}
+		
+	}
+	getAvailableUsers(callback){
+		queryStr='select * from users where status=\'available\' and now()>=starttime and now()<=endtime';
+		console.log(queryStr);
+		pool.query(queryStr,(err,res)=>{
+			callback(res.rows);
+		}
 	}
 	
 }

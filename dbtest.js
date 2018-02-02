@@ -56,9 +56,19 @@ db.getUser('+19991112222', function(err, user) {
 });
 */
 
-testGetUser('+15105551337');
-testGetUser('+12348290823');
+//testGetUser('+15105551337');
+//testGetUser('+12348290823');
 //db.destruct();
+
+testAddUser('+58390688539');
+
+function testAddUser(){
+	db.addUser(phonenumber,function(result){
+		console.log(result.toString());
+	});
+}
+
+
 
 function testGetUser(phonenumber){
 	db.getUser(phonenumber,function(user){
