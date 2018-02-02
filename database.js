@@ -28,7 +28,7 @@ module.exports = {
 			callback(res);
 		});
 		
-	}
+	},
 	getAvailableUsers(callback){
 		queryStr='select * from users where status=\'available\' and now()>=starttime and now()<=endtime';
 		console.log(queryStr);
