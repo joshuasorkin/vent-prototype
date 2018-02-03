@@ -37,6 +37,7 @@ module.exports = {
 		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
 			console.log("in getAvailableUsers, before callback");
+			console.log("result length, in getAvailableUsers: "+res.rows.length);
 			callback(res.rows);
 			console.log("in getAvailableUsers, after callback");
 
