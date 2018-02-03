@@ -69,8 +69,8 @@ function testAddUser(phonenumber){
 	});
 }
 
-function testGetAvailable(){
-	db.getAvailable(function(result){
+function testGetAvailableUsers(){
+	db.getAvailableUsers(function(result){
 		result.forEach(function(element){
 			console.log(element.phonenumber);
 		});
