@@ -70,7 +70,7 @@ function testAddUser(phonenumber){
 }
 
 function testGetAvailable(){
-	db.getAvailable(phonenumber,function(result){
+	db.getAvailable(function(result){
 		result.forEach(function(element){
 			console.log(element.phonenumber);
 		});
