@@ -71,7 +71,9 @@ function testAddUser(phonenumber){
 
 function testGetAvailableUsers(){
 	db.getAvailableUsers(function(result){
+		console.log("running callback function that was passed to getAvailableUsers")
 		result.forEach(function(element){
+			console.log("logging element");
 			console.log(JSON.stringify(element));
 		});
 	});

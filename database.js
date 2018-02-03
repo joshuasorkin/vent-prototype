@@ -36,7 +36,10 @@ module.exports = {
 		queryStr='select * from users where status=\'available\' and now()>=starttime and now()<=endtime';
 		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
+			console.log("in getAvailableUsers, before callback");
 			callback(res.rows);
+			console.log("in getAvailableUsers, after callback");
+
 		});
 	}
 	
