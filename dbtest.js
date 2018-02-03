@@ -72,7 +72,7 @@ function testAddUser(phonenumber){
 function testGetAvailableUsers(){
 	db.getAvailableUsers(function(result){
 		result.forEach(function(element){
-			console.log(element.phonenumber);
+			console.log(JSON.stringify(element));
 		});
 	});
 }
