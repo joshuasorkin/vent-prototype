@@ -25,6 +25,9 @@ module.exports = {
 		queryStr='insert into users (phonenumber,status) values (\''+phonenumber+'\',\'in use\')';
 		console.log(queryStr);
 		pool.query(queryStr,(err,res)=>{
+			if (err){
+				console.log("error from addUser");
+			}
 			callback(res);
 		});
 		
