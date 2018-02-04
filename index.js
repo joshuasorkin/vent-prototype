@@ -12,7 +12,7 @@ const client=require('twilio')(
 	process.env.TWILIO_ACCOUNT_SID,
 	process.env.TWILIO_AUTH_TOKEN
 );
-
+var db=require('./database');
 
 
 var https=require("https");
@@ -49,6 +49,49 @@ function buildGetUrl(baseUrl,paramArray){
 	return url;
 	
 }		
+
+app.get('/alpha',(req,res)=>{
+	const response=new VoiceResponse();
+	url=process.env.VENT_URL+"beta";
+	
+	gather=response.gather({
+		action:url,
+		method:'GET'
+	});
+	gather.say("This is alpha.  Now transferring to beta.  Press 1 to return to alpha, press 2 to exit.");
+	response.say("We didn't receive input.  Goodbye!");
+	sendResponse(response,res);
+});
+
+app.get('/beta',(req,res)=>{
+	var digits=req.query.Digits;
+	const response=new VoiceResponse();
+	var url;
+	
+	switch(digits){
+		case "1":
+			url=process.env.VENT_URL+"alpha";
+			response.say("Now transferring to alpha.")
+			redirect=response.redirect({
+				action:url,
+				method:'GET'
+			});
+			break;
+		case "2":
+			response.say("Exiting per your request.");
+			response.hangup();
+			break;
+		default:
+			response.say("Invalid input.  Exiting.");
+			response.hangup();
+			break;
+	}
+	sendResponse(response,res);
+		
+});
+
+
+
 
 app.post('/voice',(req,res)=>{
 	console.log("reached voice endpoint");
@@ -170,7 +213,11 @@ function sendResponse(response,res){
 
 app.post('/inboundHandler',(req,res)=>{
 	inboundNumber=req.body.From;
-	userObj=getUser(inboundNumber);
+	db.getUser(inboundNumber,function(user){
+		if (user==null){
+			db.addUser(inboundNumber,function()
+		}
+	});
 	const response=new VoiceResponse();
 	gather=response.gather({
 		action:url,

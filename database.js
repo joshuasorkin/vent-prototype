@@ -42,7 +42,8 @@ module.exports = {
 			console.log("in getAvailableUsers, after callback");
 
 		});
-	}
+	},
+	updateUserStatus
 	
 }
 
