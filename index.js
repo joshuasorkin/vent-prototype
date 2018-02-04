@@ -101,9 +101,8 @@ app.post('/voice',(req,res)=>{
 	
 	const response=new VoiceResponse();
 	response.redirect({
-		url:process.env.VENT_URL+'alpha',
 		method:'GET'
-	});
+	},process.env.VENT_URL+'alpha');
 	
 	/*
 	conferenceName="test conference room";
