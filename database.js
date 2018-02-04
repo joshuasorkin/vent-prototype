@@ -43,7 +43,18 @@ module.exports = {
 
 		});
 	},
-	updateUserStatus
+	updateUserStatus(callback){
+		queryStr='update users set status=\''+statusValue+'\' where id='+id;
+		console.log(queryStr);
+		pool.query(queryStr,(err,res)=>{
+			if (err){
+				console.log("error from updateUserStatus");
+			}
+			else{
+				callback(res);
+			}
+		});
+	}
 	
 }
 
