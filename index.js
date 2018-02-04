@@ -102,7 +102,7 @@ app.post('/voice',(req,res)=>{
 	const response=new VoiceResponse();
 	response.redirect({
 		url:process.env.VENT_URL+'alpha',
-		method:get
+		method:'GET'
 	});
 	
 	/*
