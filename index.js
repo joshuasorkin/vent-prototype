@@ -94,8 +94,16 @@ app.get('/beta',(req,res)=>{
 
 
 app.post('/voice',(req,res)=>{
+	
+	
 	console.log("reached voice endpoint");
 	sid=req.body.CallSid;
+	
+	const response=new VoiceResponse();
+	response.redirect({
+		url:process.env.VENT_URL+'alpha',
+		method:get
+	});
 	
 	/*
 	conferenceName="test conference room";
@@ -110,7 +118,7 @@ app.post('/voice',(req,res)=>{
 	*/
 	
 	
-	
+	/*
 	baseUrl=process.env.VENT_URL+"callHost";
 	
 	//todo: find more secure source of unique conference ID (maybe hash of sid)
@@ -132,11 +140,11 @@ app.post('/voice',(req,res)=>{
 	},"Thank you for calling Vent. Please wait while we find a host.");
 	const dial = response.dial();
 	dial.conference(sid);
+	*/
+	
+	
 	
 	sendResponse(response,res);
-	//twimlOutput=response.toString();
-	//console.log(twimlOutput);
-	//res.send(twimlOutput);
 		
 });
 
