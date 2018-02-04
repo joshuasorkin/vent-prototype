@@ -210,7 +210,7 @@ function sendResponse(response,res){
 	res.send(responseTwiml);
 }
 
-
+/*
 app.post('/inboundHandler',(req,res)=>{
 	inboundNumber=req.body.From;
 	db.getUser(inboundNumber,function(user){
@@ -225,6 +225,7 @@ app.post('/inboundHandler',(req,res)=>{
 	});
 	gather.say("Welcome to Vent.  ")
 });
+*/
 
 
 
