@@ -125,7 +125,9 @@ app.post('/voice',(req,res)=>{
 	//todo: find more secure source of unique conference ID (maybe hash of sid)
 	conferenceName=sid;
 	params={'conferenceName':conferenceName};
-	url=buildGetUrl(baseUrl,params);	
+	url=buildGetUrl(baseUrl,params);
+
+	console.log("/voice: url "+url);
 	var call=client.calls.create({
 		url:url,
 		to: '+15105753138',
@@ -143,7 +145,7 @@ app.post('/voice',(req,res)=>{
 	dial.conference(sid);
 	
 	
-	
+	console.log('/voice sendResponse: ');
 	
 	sendResponse(response,res);
 		
@@ -246,6 +248,7 @@ app.get('/callHost',(req,res)=>{
 	
 	baseUrl=process.env.VENT_URL+'handleHostResponseToOfferedGuest';
 	url=buildGetUrl(baseUrl,params);
+	console.log('/callHost: url '+url);
 	
 	gather=response.gather({
 		action:url,
@@ -253,6 +256,7 @@ app.get('/callHost',(req,res)=>{
 	});
 	gather.say("You have a call from Vent.  Press 1 to accept, press any other key to refuse.");
 	response.say("We didn't receive input.  Goodbye!");
+	console.log('/callHost sendResponse: ');
 	sendResponse(response,res);
 });
 
